@@ -1,8 +1,8 @@
 //
 //  SceneDelegate.swift
-//  MagicCalculator
+//  TinkoffCalculator
 //
-//  Created by Satin on 26.01.2024.
+//  Created by Satin on 27.01.2024.
 //
 
 import UIKit
