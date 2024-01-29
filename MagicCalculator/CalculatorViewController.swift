@@ -11,6 +11,7 @@ class CalculatorViewController: UIViewController {
     var result: Double = 0
     var numHistory: [String] = [] // Array of all parts of number
     var equalFlag = 0
+    var lastCalculation = "No Data"
     @IBOutlet weak var label: UILabel!
     
     override func viewDidLoad() {
@@ -109,6 +110,7 @@ class CalculatorViewController: UIViewController {
             let resultString = try calculate(num1, calculationHistory[1], num2)
             if let resultValue = Double(resultString) {
                 label.text = (resultValue.truncatingRemainder(dividingBy: 1) == 0) ? String(format: "%.0f", resultValue) : resultString
+                lastCalculation = label.text!
             }
         } catch {
             label.text = "Error"
@@ -147,6 +149,7 @@ class CalculatorViewController: UIViewController {
     @IBAction func calculationsList(_ sender: Any) {
         let calculationsList = ListOfCalculationsViewController()
         calculationsList.title = "Calculations list"
+        calculationsList.result = lastCalculation
         navigationController?.pushViewController(calculationsList, animated: true)
     }
     
