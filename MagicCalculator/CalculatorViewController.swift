@@ -4,16 +4,22 @@ enum CalculationError: Error {
     case divideByZero
 }
 
-class ViewController: UIViewController {
+class CalculatorViewController: UIViewController {
     
     let maxSymbols = 17
     var calculationHistory: [String] = [] // Number1, operator, Number2
     var result: Double = 0
     var numHistory: [String] = [] // Array of all parts of number
     var equalFlag = 0
+    @IBOutlet weak var label: UILabel!
     
-    // Nums + point symbol
-    @IBAction func buttonPressed(_ sender: UIButton) {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        resetLabelText()
+    }
+
+    // MARK: Main calculator logic
+    @IBAction func numOrPointButtonPressed(_ sender: UIButton) {
         // Next term after operator or after equal symbol
         if numHistory.isEmpty && equalFlag != 1 {
             resetLabelText()
@@ -22,7 +28,6 @@ class ViewController: UIViewController {
         }
         
         guard let buttonText = sender.currentTitle else { return }
-        
         if buttonText == "." && label.text?.contains(".") == true { return }
         
         // Start to entering the number
@@ -51,14 +56,11 @@ class ViewController: UIViewController {
             
             for char in numHistory {
                 fullNum += char
-                
             }
-            
             return fullNum
         }
     }
     
-    // Operations
     @IBAction func operationButtonPressed(_ sender: UIButton) {
         numHistory = []
         equalFlag = 0
@@ -73,38 +75,15 @@ class ViewController: UIViewController {
         
     }
     
-    // Equal Button
-    @IBAction func calculateButtonPressed() {
+    @IBAction func equalButtonPressed() {
         if calculationHistory.count == 3 {
             equalFlag = 1
             calculateAndUpdLabel()
         }
-        
     }
     
-    // Clear button
     @IBAction func clearButtonPressed() {
         clearAll()
-    }
-    
-    @IBOutlet weak var label: UILabel!
-    
-    lazy var numberFormatter: NumberFormatter = {
-        let numberFormatter = NumberFormatter()
-        
-        numberFormatter.usesGroupingSeparator = false
-        numberFormatter.locale = Locale(identifier: "en_EN")
-        numberFormatter.numberStyle = .decimal
-        
-        
-        return numberFormatter
-    }()
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        resetLabelText()
     }
     
     func calculate(_ num1: Double, _ operation: String, _ num2: Double) throws -> String {
@@ -135,7 +114,6 @@ class ViewController: UIViewController {
             label.text = "Error"
         }
         
-        
         // Clean numbers and operator storage array
         calculationHistory = []
         
@@ -143,6 +121,17 @@ class ViewController: UIViewController {
         calculationHistory.append(label.text ?? "0")
     }
     
+    // MARK: Support calculator logic
+    lazy var numberFormatter: NumberFormatter = {
+        let numberFormatter = NumberFormatter()
+        
+        numberFormatter.usesGroupingSeparator = false
+        numberFormatter.locale = Locale(identifier: "en_EN")
+        numberFormatter.numberStyle = .decimal
+        
+        return numberFormatter
+    }()
+
     func clearAll() {
         calculationHistory = []
         numHistory = []
@@ -154,5 +143,17 @@ class ViewController: UIViewController {
         label.text = "0"
     }
     
+    // MARK: Other logic
+    @IBAction func calculationsList(_ sender: Any) {
+        let calculationsList = ListOfCalculationsViewController()
+        calculationsList.title = "Calculations list"
+        navigationController?.pushViewController(calculationsList, animated: true)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
+    
 }
-
