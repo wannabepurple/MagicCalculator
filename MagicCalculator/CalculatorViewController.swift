@@ -11,16 +11,17 @@ class CalculatorViewController: UIViewController {
     var result: Double = 0
     var numHistory: [String] = [] // Array of all parts of number
     var equalFlag = 0
-    var lastCalculation = "No Data"
+    var expressionsList: [String] = []
     @IBOutlet weak var label: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         resetLabelText()
     }
-
+    
     // MARK: Main calculator logic
     @IBAction func numOrPointButtonPressed(_ sender: UIButton) {
+        
         // Next term after operator or after equal symbol
         if numHistory.isEmpty && equalFlag != 1 {
             resetLabelText()
@@ -73,7 +74,6 @@ class CalculatorViewController: UIViewController {
         }
         
         calculationHistory.append(operation)
-        
     }
     
     @IBAction func equalButtonPressed() {
@@ -102,6 +102,7 @@ class CalculatorViewController: UIViewController {
     }
     
     func calculateAndUpdLabel() {
+        
         // Count sum of two terms
         let num1 = Double(calculationHistory[0]) ?? 0
         let num2 = Double(calculationHistory[2]) ?? 0
@@ -110,11 +111,13 @@ class CalculatorViewController: UIViewController {
             let resultString = try calculate(num1, calculationHistory[1], num2)
             if let resultValue = Double(resultString) {
                 label.text = (resultValue.truncatingRemainder(dividingBy: 1) == 0) ? String(format: "%.0f", resultValue) : resultString
-                lastCalculation = label.text!
             }
         } catch {
             label.text = "Error"
         }
+        
+        // Add to expression list an expression
+        expressionsList.append("\(calculationHistory[0]) \(calculationHistory[1]) \(calculationHistory[2]) = \(label.text!)")
         
         // Clean numbers and operator storage array
         calculationHistory = []
@@ -133,7 +136,7 @@ class CalculatorViewController: UIViewController {
         
         return numberFormatter
     }()
-
+    
     func clearAll() {
         calculationHistory = []
         numHistory = []
@@ -149,7 +152,7 @@ class CalculatorViewController: UIViewController {
     @IBAction func calculationsList(_ sender: Any) {
         let calculationsList = ListOfCalculationsViewController()
         calculationsList.title = "Calculations list"
-        calculationsList.result = lastCalculation
+        calculationsList.expressionsList = expressionsList
         navigationController?.pushViewController(calculationsList, animated: true)
     }
     
@@ -157,6 +160,4 @@ class CalculatorViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
-    
-    
 }
