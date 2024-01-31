@@ -12,12 +12,13 @@ class CalculatorViewController: UIViewController {
     var numHistory: [String] = [] // Array of all parts of number
     var equalFlag = 0
     var expressionsList: [String] = [] // Array, which i need save
+    let calculationHistoryStorage = CalculationHistoryStorage()
     @IBOutlet weak var label: UILabel!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         resetLabelText()
+        expressionsList = calculationHistoryStorage.loadHistory()
     }
     
     // MARK: Main calculator logic
@@ -119,6 +120,7 @@ class CalculatorViewController: UIViewController {
         
         // Add to expression list an expression
         expressionsList.append("\(calculationHistory[0]) \(calculationHistory[1]) \(calculationHistory[2]) = \(label.text!)")
+        calculationHistoryStorage.setHistory(calculations: expressionsList)
         
         // Clean numbers and operator storage array
         calculationHistory = []
