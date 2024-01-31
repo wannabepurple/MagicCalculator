@@ -6,9 +6,10 @@ enum CalculationError: Error {
 
 class CalculatorViewController: UIViewController {
     let maxSymbols = 17
+    var numHistory: [String] = [] // Array of single nums (needs to concatenate single nums to full number)
     var calculationHistory: [String] = [] // Number1, operator, Number2
+    // FIXME: can be 2 operators in expression (after equal tap double operation)
     var result: Double = 0
-    var numHistory: [String] = [] // Array of all parts of number
     var equalFlag = 0
     @IBOutlet weak var label: UILabel!
     

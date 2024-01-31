@@ -80,7 +80,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8796BBC22B696B7400F6AA6C /* History */ = {
+		8796BBC22B696B7400F6AA6C /* History page */ = {
 			isa = PBXGroup;
 			children = (
 				871A0A762B685D2900E39BB8 /* ListOfCalculationsViewController.swift */,
@@ -88,7 +88,7 @@
 				8796BBC32B696BF900F6AA6C /* HistoryTableViewCell.swift */,
 				8796BBC42B696BF900F6AA6C /* HistoryTableViewCell.xib */,
 			);
-			path = History;
+			path = "History page";
 			sourceTree = "<group>";
 		};
 		8796BBC72B6995DB00F6AA6C /* Calculator */ = {
@@ -121,9 +121,9 @@
 		879FB1F92B6591F900C3D2B9 /* MagicCalculator */ = {
 			isa = PBXGroup;
 			children = (
-				87CCB8382B6AC1030061763E /* Storage */,
+				87CCB8382B6AC1030061763E /* Storage module */,
 				8796BBC72B6995DB00F6AA6C /* Calculator */,
-				8796BBC22B696B7400F6AA6C /* History */,
+				8796BBC22B696B7400F6AA6C /* History page */,
 				879FB1FA2B6591F900C3D2B9 /* AppDelegate.swift */,
 				879FB1FC2B6591F900C3D2B9 /* SceneDelegate.swift */,
 				879FB2032B6591FA00C3D2B9 /* Assets.xcassets */,
@@ -133,12 +133,12 @@
 			path = MagicCalculator;
 			sourceTree = "<group>";
 		};
-		87CCB8382B6AC1030061763E /* Storage */ = {
+		87CCB8382B6AC1030061763E /* Storage module */ = {
 			isa = PBXGroup;
 			children = (
 				87CCB8392B6AC1190061763E /* Storage.swift */,
 			);
-			path = Storage;
+			path = "Storage module";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
