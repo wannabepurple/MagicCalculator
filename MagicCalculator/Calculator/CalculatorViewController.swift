@@ -11,8 +11,9 @@ class CalculatorViewController: UIViewController {
     var result: Double = 0
     var numHistory: [String] = [] // Array of all parts of number
     var equalFlag = 0
-    var expressionsList: [String] = []
+    var expressionsList: [String] = [] // Array, which i need save
     @IBOutlet weak var label: UILabel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
