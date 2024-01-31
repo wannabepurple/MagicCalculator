@@ -1,10 +1,9 @@
 import Foundation
 
-//struct Calculations {
-//    let expression: [String]
-//}
-
-//extension Calculations: Codable {}
+struct StorageData {
+    static var expressionsList: [String] = []
+    static let calculationHistoryStorage = CalculationHistoryStorage()
+}
 
 class CalculationHistoryStorage {
     static let calculationHistoryKey = "calculationHistoryKey"
@@ -22,5 +21,9 @@ class CalculationHistoryStorage {
             return (try? JSONDecoder().decode([String].self, from: data)) ?? []
         }
         return []
+    }
+    
+    func clearHistory() {
+            UserDefaults.standard.removeObject(forKey: CalculationHistoryStorage.calculationHistoryKey)
     }
 }

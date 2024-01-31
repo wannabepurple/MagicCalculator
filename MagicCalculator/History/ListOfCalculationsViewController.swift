@@ -1,9 +1,7 @@
 import UIKit
 
 class ListOfCalculationsViewController: UIViewController {
-    
     @IBOutlet weak var tableView: UITableView!
-    var expressionsList: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -13,6 +11,12 @@ class ListOfCalculationsViewController: UIViewController {
         tableView.register(nib, forCellReuseIdentifier: "HistoryTableViewCell")
     }
     
+    @IBAction func clearCalculationsHistory(_ sender: Any) {
+        StorageData.calculationHistoryStorage.clearHistory()
+        StorageData.expressionsList = StorageData.calculationHistoryStorage.loadHistory()
+        tableView.reloadData()
+    }
+    
     // MARK: Other logic
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -20,15 +24,15 @@ class ListOfCalculationsViewController: UIViewController {
     }
 }
 
-// MARK: Required extensions to increment
+// MARK: Required extensions to implement
 extension ListOfCalculationsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return expressionsList.count
+        return StorageData.expressionsList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryTableViewCell", for: indexPath) as! HistoryTableViewCell
-        cell.setCellTitle(with: expressionsList[indexPath.row])
+        cell.setCellTitle(with: StorageData.expressionsList[indexPath.row])
         return cell
     }
 }
